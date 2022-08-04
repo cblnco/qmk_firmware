@@ -49,32 +49,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Caps |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Sft  | GUI  | Ctrl | Alt  | NUMB |    Space    | MOB  | Alt  | Sft  | Ctrl | SYMB |
+ * | Sft  | GUI  | Alt  | Ctrl | NUMB |    Space    | MOB  | Ctrl | Alt  | Sys  | Sft  |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
-    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC,
-    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,     KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,
-    KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_ENT ,
-    KC_LSFT, KC_LGUI, KC_LCTL, KC_LALT, NUMBERS, KC_SPC, KC_SPC, MOBILITY, KC_RALT, KC_RSFT, KC_RCTRL, SYMBOLS
+    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,     KC_P,     KC_BSPC,
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,     KC_G,   KC_H,   KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,
+    LSFT_T(KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  KC_ENT ,
+    SYMBOLS, KC_LALT, KC_LGUI, KC_LCTL, NUMBERS, KC_SPC, KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI,  KC_RSFT
 ),
 
 /* Mobility
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   Q  | VolU |   Up | VolD |   T  |   Y  |   U  | Home |  Up  |  End | Bksp |
+ * | Esc  |   Q  | VolD |   Up | VolU |   T  |   Y  | Home |  Up  |  End |   P  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   A  | Left | Down | Rght |   (  |   H  |   )  | Left | Down | Right|  "   |
+ * | Tab  |   A  | Left | Down | Rght |   (  |   )  | Left | Down | Right|   ;  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |   Z  |   X  |   C  |   [  |   {  |   N  |   }  |   ]  |  DEL |   /  |Enter |
+ * | Caps |   Z  |   X  |   C  |   [  |   {  |   }  |   ]  |  Del |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Sft  | GUI  | Ctrl | Alt  |   ▽  |    Space    | MOB  | Alt  | Sft  | Ctrl | SYMB |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOBILITY] = LAYOUT_planck_grid(
-    KC_ESC,  KC_Q,    KC_VOLD, KC_UP,   KC_VOLU,  KC_T,    KC_Y,   KC_U,    KC_HOME,  KC_UP,   KC_END,   KC_BSPC,
-    KC_TAB,  KC_A,    KC_LEFT, KC_DOWN, KC_RIGHT, KC_LPRN, KC_H,   KC_RPRN, KC_LEFT,  KC_DOWN, KC_RIGHT, KC_QUOT,
-    KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_LBRC,  KC_LCBR, KC_N,   KC_RCBR, KC_RBRC,  KC_DEL,  KC_SLSH,  KC_ENT ,
-    KC_LSFT, KC_LGUI, KC_LCTL, KC_LALT, KC_TRNS,  KC_SPC,  KC_SPC, MOBILITY, KC_RALT, KC_RSFT, KC_RCTRL, SYMBOLS
+    KC_ESC,  KC_VOLD, KC_UP,   KC_VOLU,  KC_R,    KC_T,   KC_Y,   KC_U,     KC_HOME,  KC_UP,   KC_END,   KC_BSPC,
+    KC_TAB,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_F,    KC_G,   KC_H,   KC_J,     KC_LEFT,  KC_DOWN, KC_RIGHT, KC_QUOT,
+    LSFT_T(KC_CAPS), KC_MUTE, KC_X,    KC_C,     KC_V,    KC_B,   KC_N,   KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT ,
+    SYMBOLS, KC_LALT, KC_LGUI, KC_LCTL,  NUMBERS, KC_SPC, KC_SPC, KC_TRNS, KC_RCTRL, KC_RALT, KC_RGUI,  KC_RSFT
 ),
 
 /* Numbers / Functions
@@ -89,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMBERS] = LAYOUT_planck_grid(
-    KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_1,    KC_2,    KC_3,    KC_0,     KC_BSPC,
-    KC_TAB,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_4,    KC_5,    KC_6,    KC_SCLN,  KC_QUOT,
-    KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_LBRC, KC_RBRC, KC_7,    KC_8,    KC_9,    KC_SLSH,  KC_ENT ,
-    KC_LSFT, KC_LGUI, KC_LCTL, KC_LALT, NUMBERS, KC_SPC,  KC_SPC,  KC_TRNS, KC_RALT, KC_RSFT, KC_RCTRL, SYMBOLS
+    KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_T,   KC_Y,   KC_U,     KC_1,     KC_2,    KC_3,    KC_BSPC,
+    KC_TAB,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_G,   KC_H,   KC_J,     KC_4,     KC_5,    KC_6,    KC_QUOT,
+    LSFT_T(KC_CAPS), KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_B,   KC_N,   KC_0,     KC_7,     KC_8,    KC_9,    KC_ENT ,
+    SYMBOLS, KC_LALT, KC_LGUI, KC_LCTL, KC_TRNS, KC_SPC, KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI, KC_RSFT
 ),
 
 /* Symbols
@@ -107,10 +107,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMBOLS] = LAYOUT_planck_grid(
-    KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,  KC_ASTR, KC_MINS,  KC_EQL,    KC_BSPC,
-    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,     KC_K,    KC_GRAVE, KC_BSLASH, KC_QUOT,
-    KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,     KC_COMM, KC_DOT,   KC_SLSH,   KC_ENT ,
-    KC_LSFT, KC_LGUI, KC_LCTL, KC_LALT, NUMBERS, KC_SPC,  KC_SPC,  MOBILITY, KC_RALT, KC_RSFT,  KC_RCTRL,  KC_TRNS
+    KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC,   KC_LPRN, KC_RPRN,    KC_MINS,     KC_EQL,     KC_BSPC,
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_AMPR, KC_ASTR, KC_H,   KC_LCBR, KC_RCBR,    KC_LBRC,  KC_RBRC,  KC_BSLASH,
+    LSFT_T(KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  KC_ENT ,
+    KC_TRNS, KC_LALT, KC_LGUI, KC_LCTL, NUMBERS, KC_SPC,  KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI,  KC_RSFT
 ),
 
 /* Adjust (Lower + Raise)
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______,   _______,   _______, _______, _______, _______, _______, _______,  _______, _______, _______ ,
     _______, _______, _______,  _______,   _______,  _______, _______, _______,  _______,  _______,  _______,  _______,
     _______, _______,  _______,  _______,   _______,  _______,   _______,  _______, _______, _______, _______, _______,
-    AG_NORM, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, AG_SWAP
+    LCG_NRM, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, LCG_SWP
 )
 
 };
@@ -141,8 +141,6 @@ float adjust[][2] = NUMBER_SYMBOL_SONG;
 float ag_norm[][2] = AG_NORM_SONG;
 float ag_swap[][2] = AG_SWAP_SONG;
 #endif
-
-static bool is_capslock_on = false;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   static bool is_adjust_on = false;
@@ -166,22 +164,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
-    case KC_CAPS:
-      if (record->event.pressed) {
-        is_capslock_on = !is_capslock_on;
-
-        if (is_capslock_on) {
-          #ifdef AUDIO_ENABLE
-            PLAY_SONG(capslock_on);
-          #endif
-        } else {
-          #ifdef AUDIO_ENABLE
-            PLAY_SONG(capslock_off);
-          #endif
-        }
-      }
-      return true;
       break;
     case AG_NORM:
       if (record->event.pressed) {
