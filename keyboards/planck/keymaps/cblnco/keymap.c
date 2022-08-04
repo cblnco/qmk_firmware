@@ -137,7 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float adjust[][2] = NUMBER_SYMBOL_SONG;
 float ag_norm[][2] = AG_NORM_SONG;
 float ag_swap[][2] = AG_SWAP_SONG;
 #endif
