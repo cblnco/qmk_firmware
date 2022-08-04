@@ -38,8 +38,6 @@ enum planck_keycodes {
 #define NUMBERS MO(_NUMBERS)
 #define SYMBOLS MO(_SYMBOLS)
 #define FUNCTION MO(_FUNCTION)
-#define STARTUP_SONG SONG(KEEB_STARTUP_SONG)
-#define AUDIO_INIT_DELAY
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -137,8 +135,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float ag_norm[][2] = AG_NORM_SONG;
-float ag_swap[][2] = AG_SWAP_SONG;
+float adjust[][2] = ADJUST_SONG;
+float lcg_norm[][2] = LCG_NORM_SONG;
+float lcg_swap[][2] = LCG_SWAP_SONG;
 #endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -167,7 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case AG_NORM:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(ag_norm);
+          PLAY_SONG(lcg_norm);
         #endif
       }
       return true;
@@ -175,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case AG_SWAP:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(ag_swap);
+          PLAY_SONG(lcg_swap);
         #endif
       }
       return true;
