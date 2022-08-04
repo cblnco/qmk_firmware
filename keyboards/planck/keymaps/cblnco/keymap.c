@@ -38,6 +38,8 @@ enum planck_keycodes {
 #define NUMBERS MO(_NUMBERS)
 #define SYMBOLS MO(_SYMBOLS)
 #define FUNCTION MO(_FUNCTION)
+#define STARTUP_SONG SONG(KEEB_STARTUP_SONG)
+#define AUDIO_INIT_DELAY
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -135,8 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float capslock_on[][2] = CAPSLOCK_ON_SONG;
-float capslock_off[][2] = CAPSLOCK_OFF_SONG;
 float adjust[][2] = NUMBER_SYMBOL_SONG;
 float ag_norm[][2] = AG_NORM_SONG;
 float ag_swap[][2] = AG_SWAP_SONG;
