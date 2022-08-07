@@ -31,13 +31,17 @@ enum planck_keycodes {
   MOBILITY,
   NUMBERS,
   SYMBOLS,
-  ADJUST
+  ADJUST,
+  WIN,
+  MAC,
 };
 
 #define MOBILITY MO(_MOBILITY)
 #define NUMBERS MO(_NUMBERS)
 #define SYMBOLS TG(_SYMBOLS)
 #define FUNCTION MO(_FUNCTION)
+
+static void set_keycodes_for_os(int os);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -55,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,     KC_P,     KC_BSPC,
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,     KC_G,   KC_H,   KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,
-    LSFT_T(KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  KC_ENT ,
+    KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  KC_ENT ,
     LSFT_T(SYMBOLS), KC_LALT, KC_LGUI, KC_LCTL, NUMBERS, KC_SPC, KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI,  RSFT_T(SYMBOLS)
 ),
 
@@ -73,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MOBILITY] = LAYOUT_planck_grid(
     KC_ESC,  KC_VOLD, KC_UP,   KC_VOLU,  KC_R,    KC_T,   KC_Y,   KC_HOME,     KC_UP,  KC_END,   KC_P,   KC_BSPC,
     KC_TAB,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_F,    KC_G,   KC_H,   KC_LEFT,     KC_DOWN,  KC_RIGHT, KC_SCLN, KC_QUOT,
-    LSFT_T(KC_CAPS), KC_MUTE, KC_X,    KC_C,     KC_V,    KC_B,   KC_N,   KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT ,
-    LSFT_T(SYMBOLS), KC_LALT, KC_LGUI, KC_LCTL,  NUMBERS, KC_SPC, KC_SPC, KC_TRNS, KC_RCTRL, KC_RALT, KC_RGUI,  RSFT_T(SYMBOLS)
+    KC_CAPS, KC_MUTE, KC_X,    KC_C,     KC_V,    KC_B,   KC_N,   KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT ,
+    LSFT_T(SYMBOLS), KC_LALT, KC_LGUI, KC_LCTL,  NUMBERS, KC_SPC, KC_SPC, _______, KC_RCTRL, KC_RALT, KC_RGUI,  RSFT_T(SYMBOLS)
 ),
 
 /* Numbers / Functions
@@ -91,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMBERS] = LAYOUT_planck_grid(
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_T,   KC_Y,   KC_U,     KC_1,     KC_2,    KC_3,    KC_BSPC,
     KC_TAB,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_G,   KC_H,   KC_J,     KC_4,     KC_5,    KC_6,    KC_QUOT,
-    LSFT_T(KC_CAPS), KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_B,   KC_N,   KC_0,     KC_7,     KC_8,    KC_9,    KC_ENT ,
-    LSFT_T(SYMBOLS), KC_LALT, KC_LGUI, KC_LCTL, KC_TRNS, KC_SPC, KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI, RSFT_T(SYMBOLS)
+    KC_CAPS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_B,   KC_N,   KC_0,     KC_7,     KC_8,    KC_9,    KC_ENT ,
+    LSFT_T(SYMBOLS), KC_LALT, KC_LGUI, KC_LCTL, _______, KC_SPC, KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI, RSFT_T(SYMBOLS)
 ),
 
 /* Symbols
@@ -109,8 +113,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYMBOLS] = LAYOUT_planck_grid(
     KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC,   KC_LPRN, KC_RPRN,    KC_MINS,     KC_EQL,     KC_BSPC,
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_AMPR, KC_ASTR, KC_H,   KC_LCBR, KC_RCBR,    KC_LBRC,  KC_RBRC,  KC_BSLASH,
-    LSFT_T(KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  KC_ENT ,
-    KC_TRNS, KC_LALT, KC_LGUI, KC_LCTL, NUMBERS, KC_SPC,  KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI,  RSFT_T(SYMBOLS)
+    KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  KC_ENT ,
+    LSFT_T(SYMBOLS), KC_LALT, KC_LGUI, KC_LCTL, NUMBERS, KC_SPC,  KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI,  RSFT_T(SYMBOLS)
 ),
 
 /* Adjust (Lower + Raise)
@@ -122,23 +126,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | SWAP |      |      |      |      |             |      |      |      |      | NORM |
+ * | WIN  |      |      |      |      |             |      |      |      |      | MAC  |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, _______,   _______,   _______, _______, _______, _______, _______, _______,  _______, _______, _______ ,
-    _______, _______, _______,  _______,   _______,  _______, _______, _______,  _______,  _______,  _______,  _______,
-    _______, _______,  _______,  _______,   _______,  _______,   _______,  _______, _______, _______, _______, _______,
-    MAGIC_UNSWAP_LCTL_LGUI, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, MAGIC_SWAP_LCTL_LGUI
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    WIN,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MAC
 )
 
 };
 
 #ifdef AUDIO_ENABLE
 float adjust[][2] = ADJUST_SONG;
-float lcg_norm[][2] = LCG_NORM_SONG;
-float lcg_swap[][2] = LCG_SWAP_SONG;
+float win_mode[][2] = WIN_SONG;
+float mac_mode[][2] = MAC_SONG;
 #endif
+
+static bool is_capslock_on;
+uint8_t keycode_leftgui;
+uint8_t keycode_leftalt;
+
+void keyboard_post_init_user(void) {
+  is_capslock_on = false;
+};
+
+void switch_os_keys(uint8_t os_code) {
+  if (os_code == MAC) {
+    keycode_leftgui = KC_LCTL;
+    keycode_leftalt = KC_LGUI;
+  }
+  else {
+    keycode_leftgui = KC_LGUI;
+    keycode_leftalt = KC_LCTL;
+  }
+}
+
+void type_os_key_events(uint8_t kc_code, bool is_pressed) {
+  if (is_pressed) {
+    register_code(kc_code);
+  }
+  else {
+    unregister_code(kc_code);
+  }
+  return false;
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   static bool is_adjust_on = false;
@@ -163,21 +196,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case MAGIC_UNSWAP_LCTL_LGUI:
+    case KC_CAPS:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(lcg_norm);
-        #endif
+        is_capslock_on = !is_capslock_on;
+
+        if (is_capslock_on) {
+          #ifdef AUDIO_ENABLE
+            PLAY_SONG(capslock_on);
+          #endif
+        } else {
+          #ifdef AUDIO_ENABLE
+            PLAY_SONG(capslock_off);
+          #endif
+        }
       }
       return true;
       break;
-    case MAGIC_SWAP_LCTL_LGUI:
+    case KC_LGUI:
+      type_os_key_events(keycode_leftgui, record->event.pressed);
+      break;
+    case KC_LCTL:
+      type_os_key_events(keycode_leftalt, record->event.pressed);
+      break;
+    case WIN:
       if (record->event.pressed) {
+        switch_os_keys(WIN);
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(lcg_swap);
+          PLAY_SONG(win_mode);
         #endif
       }
-      return true;
+      return false;
+      break;
+    case MAC:
+      if (record->event.pressed) {
+        switch_os_keys(MAC);
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(mac_mode);
+        #endif
+      }
+      return false;
       break;
   }
   return true;
