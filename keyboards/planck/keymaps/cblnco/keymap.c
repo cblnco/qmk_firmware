@@ -21,16 +21,16 @@
 enum planck_layers {
   _QWERTY,
   _MOBILITY,
-  _NUMBERS,
   _SYMBOLS,
+  _NUMBERS,
   _ADJUST
 };
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   MOBILITY,
-  NUMBERS,
   SYMBOLS,
+  NUMBERS,
   ADJUST,
   WIN,
   MAC,
@@ -38,22 +38,11 @@ enum planck_keycodes {
   OS_CTL
 };
 
-enum tap_dance {
-  TD_LSFT
-};
-
 #define MOBILITY MO(_MOBILITY)
 #define NUMBERS MO(_NUMBERS)
 #define SYMBOLS MO(_SYMBOLS)
-#define TD_FN_LSFT TD(TD_LSFT)
 
 static bool type_os_key_events(uint8_t keycode, bool is_pressed);
-void td_lsft_finished(qk_tap_dance_state_t *state, void *user_date);
-void td_lsft_reset(qk_tap_dance_state_t *state, void *user_data);
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_LSFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lsft_finished, td_lsft_reset)
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -69,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
-    KC_ESC,  KC_Q,    KC_W,    KC_E,   KC_R,      KC_T,   KC_Y,   KC_U,     KC_I,     KC_O,    KC_P,    KC_BSPC,
-    KC_TAB,  KC_A,    KC_S,    KC_D,   KC_F,      KC_G,   KC_H,   KC_J,     KC_K,     KC_L,    KC_SCLN, KC_QUOT,
-    KC_CAPS, KC_Z,    KC_X,    KC_C,   KC_V,      KC_B,   KC_N,   KC_M,     KC_COMM,  KC_DOT,  KC_SLSH, KC_ENT,
-    S_LSFT,  KC_LALT, OS_GUI,  OS_CTL, S_SYMBOLS, KC_SPC, KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI, KC_RSFT
+    KC_ESC,  KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,   KC_Y,   KC_U,     KC_I,     KC_O,    KC_P,    KC_BSPC,
+    KC_TAB,  KC_A,    KC_S,    KC_D,   KC_F,    KC_G,   KC_H,   KC_J,     KC_K,     KC_L,    KC_SCLN, KC_QUOT,
+    KC_CAPS, KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,   KC_N,   KC_M,     KC_COMM,  KC_DOT,  KC_SLSH, KC_ENT,
+    KC_LSFT, KC_LALT, OS_GUI,  OS_CTL, SYMBOLS, KC_SPC, KC_SPC, MOBILITY, KC_RCTRL, KC_RALT, KC_RGUI, KC_RSFT
 ),
 
 /* Mobility
@@ -89,26 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MOBILITY] = LAYOUT_planck_grid(
     _______, _______, KC_VOLD, KC_UP,   KC_VOLU,  _______, _______, KC_HOME, KC_UP,   KC_END,   _______, _______,
     _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
-    _______, _______, KC_MUTE, _______,  _______, _______, _______, _______, _______, _______,  _______, _______,
-    _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,  _______, _______
-),
-
-/* Numbers / Functions
- * ,-----------------------------------------------------------------------------------.
- * | Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   1  |   2  |   3  |   0  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   4  |   5  |   6  |   ;  |  "   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |   Z  |   X  |   C  |   V  |   [  |   ]  |   7  |   8  |   9  |   /  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Sft  | GUI  | Ctrl | Alt  | NUMB |    Space    |   ▽  | Alt  |  Sft | Ctrl | SYMB |
- * `-----------------------------------------------------------------------------------'
- */
-[_NUMBERS] = LAYOUT_planck_grid(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, KC_1,    KC_2,    KC_3,    KC_3,    _______,
-    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_4,    KC_5,    KC_6,    KC_6,    _______,
-    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_0,    KC_7,    KC_8,    KC_9,    KC_9,    _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    _______, _______, KC_MUTE, _______, _______,  _______, _______, _______, KC_DEL,  _______,  _______, _______,
+    _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______, _______
 ),
 
 /* Symbols
@@ -123,10 +94,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMBOLS] = LAYOUT_planck_grid(
-    KC_GRV,  KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC,    KC_LPRN,    KC_RPRN,       KC_MINS,      KC_EQL,        KC_BSPC,
-    _______, LSFT(KC_A), LSFT(KC_S), LSFT(KC_D), LSFT(KC_F), KC_AMPR,    KC_ASTR,    KC_LCBR,    KC_RCBR,       KC_LBRC,      KC_RBRC,       KC_BSLS,
-    _______, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), RSFT(KC_N), RSFT(KC_M), RSFT(KC_COMM), RSFT(KC_DOT), RSFT(KC_SLSH), _______,
-    _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,       _______,      _______,       _______
+    KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_LPRN, KC_RPRN, KC_MINS, KC_EQL,  KC_BSPC,
+    _______, NUMBERS, _______, _______, _______, KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_BSLS,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* Numbers / Functions
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   1  |   2  |   3  |   0  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Tab  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   4  |   5  |   6  |   ;  |  "   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Caps |   Z  |   X  |   C  |   V  |   [  |   ]  |   7  |   8  |   9  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Sft  | GUI  | Ctrl | Alt  | NUMB |    Space    |   ▽  | Alt  |  Sft | Ctrl | SYMB |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_NUMBERS] = LAYOUT_planck_grid(
+    _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, KC_1,    KC_2,    KC_3,    KC_3,    _______,
+    _______, _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, KC_4,    KC_5,    KC_6,    KC_6,    _______,
+    _______, _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_0,    KC_7,    KC_8,    KC_9,    KC_9,    _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -177,7 +166,7 @@ bool type_os_key_events(uint8_t keycode, bool is_pressed) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   static bool is_adjust_on = false;
-  layer_state_t newState = update_tri_layer_state(state, _NUMBERS, _MOBILITY, _ADJUST);
+  layer_state_t newState = update_tri_layer_state(state, _SYMBOLS, _MOBILITY, _ADJUST);
 
   is_adjust_on = layer_state_cmp(newState, _ADJUST);
 
@@ -188,24 +177,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
 
   return newState;
-}
-
-void td_lsft_finished(qk_tap_dance_state_t *state, void *user_date) {
-  if (state->count == 1) {
-    layer_on(3);
-  }
-  else {
-    register_code(KC_LSFT);
-  }
-}
-
-void td_lsft_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    layer_off(3);
-  }
-  else {
-    unregister_code(KC_LSFT);
-  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
