@@ -1,6 +1,7 @@
 #pragma once
 
 #define AUDIO_DAC_SAMPLE_MAX 4095U
+#define TAPPING_TERM 200
 
 #ifdef AUDIO_ENABLE
     #define AUDIO_INIT_DELAY
